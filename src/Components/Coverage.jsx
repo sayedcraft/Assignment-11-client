@@ -16,9 +16,23 @@ const Coverage = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const location = e.target.location.value;
+    const district = serviceCenters.find((c) =>
+      c.district.toLowerCase().includes(location.toLowerCase()),
+    );
+    if (district) {
+      const coord = [district.latitude, district.longitude];
+      //console.log("district", district, "coord", coord);
+      //goto the location
+      mapRef.current.flyTo(coord, 14);
+    }
+  };
+
   return (
     <div>
-      <div className="text-center">
+      <div className="text-center my-5">
         <h1 className="font-bold text-4xl mb-2">
           Our <span className="text-sky-500">Coverage Area</span>
         </h1>
@@ -27,28 +41,47 @@ const Coverage = () => {
           multiple cities, bringing library books directly to your home.
         </p>
       </div>
-      <div class="flex items-center gap-4 p-3 justify-center">
-        <div class="flex items-center gap-2 px-4 py-2.5 w-full max-w-md bg-white rounded-full border border-gray-200 shadow-sm transition-all">
-          <svg fill="currentColor" class="h-4 w-4 text-gray-400 ">
-            <path
-              fill-rule="evenodd"
-              d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-              clip-rule="evenodd"
+      <div className="my-6 flex justify-center">
+        <form
+          onSubmit={handleSearch}
+          className="w-full md:w-md relative flex item-center"
+        >
+          <label className="input flex items-center gap-3 bg-white shadow-sm px-4 py-3 rounded-full">
+            <svg
+              className="h-[1em] opacity-50"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <g
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth="2.5"
+                fill="none"
+                stroke="currentColor"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </g>
+            </svg>
+            <input
+              name="location"
+              type="search"
+              required
+              placeholder="Search here"
+              className="w-full outline-none"
             />
-          </svg>
-          <input
-            type="text"
-            placeholder="Search here"
-            class="w-full bg-transparent text-gray-500 placeholder-gray-400 border-none outline-none focus:outline-none "
-          />
-        </div>
+          </label>
 
-        <button class="btn bg-sky-500 hover:bg-amber-500 text-white border-none rounded-full px-5 text-base font-semibold shadow-sm normal-case">
-          Search
-        </button>
+          <button
+            type="submit"
+            className="absolute right-1  bg-sky-500 px-6 py-2 rounded-full font-semibold  cursor-pointer hover:bg-white border hover:text-black text-white border-white hover:border-sky-500"
+          >
+            Search
+          </button>
+        </form>
       </div>
-      <div className="border-b border-gray-400 mt-3 w-full"></div>
-      <div className="w-full h-150overflow-hidden -z-100  shadow">
+
+      <div className="w-full h-150overflow-hidden -z-100  shadow mb-5">
         <MapContainer
           ref={mapRef}
           center={position}
@@ -72,6 +105,8 @@ const Coverage = () => {
           ))}
         </MapContainer>
       </div>
+
+      <div className="border-b border-gray-400 my-10 w-full"></div>
     </div>
   );
 };
