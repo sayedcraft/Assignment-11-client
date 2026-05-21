@@ -1,7 +1,11 @@
 // import React from "react";
-import logo from '/logo.png'
+import { Link } from "react-router";
+import useAuth from "../../hook/useAuth";
+import logo from "/logo.png";
 
 const Navbar = () => {
+  const { user, signOutUser } = useAuth();
+
   const links = (
     <>
       <li>
@@ -15,6 +19,12 @@ const Navbar = () => {
       </li>
     </>
   );
+
+  const handleSignOut = () => {
+    signOutUser()
+      .then()
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className="navbar bg-base-100 shadow-sm">
@@ -45,7 +55,9 @@ const Navbar = () => {
           </ul>
         </div>
         <img src={logo} className="h-10 w-10" alt="" />
-        <a className="text-xl font-bold">Book<span className="text-sky-500">Courier</span></a>
+        <a className="text-xl font-bold">
+          Book<span className="text-sky-500">Courier</span>
+        </a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
@@ -79,8 +91,13 @@ const Navbar = () => {
           </svg>
         </label>
         {/* ------------- */}
-        <a className="btn btn-sm mx-2 hover:bg-amber-500">Sign In</a>
-        <a className="btn btn-sm hover:bg-amber-500">Sign Up</a>
+        {user ? (
+          <a onClick={handleSignOut} className="btn btn-sm mx-2 hover:bg-amber-500">Logout</a>
+        ) : (
+          <Link className="btn btn-sm mx-2 hover:bg-amber-500" to="/login">
+            Login
+          </Link>
+        )}
       </div>
     </div>
   );

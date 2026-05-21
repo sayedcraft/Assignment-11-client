@@ -2,6 +2,8 @@
 
 import { useForm } from "react-hook-form";
 import useAuth from "../hook/useAuth";
+import { Link } from "react-router";
+import axios from "axios";
 
 const Register = () => {
   const {
@@ -9,33 +11,88 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { registerUser } = useAuth();
+  const { registerUser, sigInWIthGoogle, updateUserProfile } = useAuth();
 
   const handleRegister = (data) => {
-    console.log(data);
+    console.log(data.photo[0]);
+    const profileImg = data.photo[0];
+
     registerUser(data.email, data.password)
+      .then((res) => {
+        console.log(res.user);
+
+        const formData = new FormData();
+        formData.append("image", profileImg);
+
+        const inageApiUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host}`;
+        axios.post(inageApiUrl, formData).then((res) => {
+          console.log(res.data.data.url);
+
+          const userProfile = {
+            displayName: data.name,
+            photoURL: res.data.data.url,
+          };
+          updateUserProfile(userProfile)
+            .then(() => console.log("user profile updated"))
+            .catch((err) => console.log(err));
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleGoogleSignIn = () => {
+    sigInWIthGoogle()
       .then((res) => console.log(res.user))
       .catch((err) => console.log(err));
   };
 
   return (
-    <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+    <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl mx-auto">
       <div className="card-body">
         <form onSubmit={handleSubmit(handleRegister)}>
           <fieldset className="fieldset">
+            {/* --Name-- */}
+            <label className="label">Name</label>
+            <input
+              {...register("name", { required: "Name is required" })}
+              type="text"
+              className="input"
+              placeholder="Enter your name"
+            />
+            {errors.email && (
+              <p className="text-xs text-red-500 mt-1">{errors.name.message}</p>
+            )}
             {/* --Email-- */}
             <label className="label">Email</label>
             <input
               {...register("email", { required: "Email is required" })}
               type="email"
               className="input"
-              placeholder="Email"
+              placeholder="Enter your email"
             />
             {errors.email && (
               <p className="text-xs text-red-500 mt-1">
                 {errors.email.message}
               </p>
             )}
+            {/* Photo URL */}
+            <div>
+              <label className="label">Profile Image</label>
+
+              <input
+                type="file"
+                {...register("photo", {
+                  required: "Profile image is required",
+                })}
+                className="file-input"
+              />
+
+              {errors.photo && (
+                <p className="text-xs text-red-500 mt-1">
+                  {errors.photo.message}
+                </p>
+              )}
+            </div>
             {/* ---Password--- */}
             <label className="label">Password</label>
             <input
@@ -45,7 +102,7 @@ const Register = () => {
               })}
               type="password"
               className="input"
-              placeholder="Password"
+              placeholder="Enter your password"
             />
             {errors.password && (
               <p className="text-xs text-red-500 mt-1">
@@ -57,11 +114,59 @@ const Register = () => {
                 Password must be 6 character or long
               </p>
             )}
-            
+
             {/* ---------- */}
             <button className="btn btn-neutral mt-4">Register</button>
           </fieldset>
         </form>
+
+        <div className="my-3 flex items-center gap-3">
+          <div className="flex-1 h-px bg-gray-300 dark:bg-gray-600" />
+          <span className="text-sm text-gray-500">OR</span>
+          <div className="flex-1 h-px bg-gray-300 dark:bg-gray-600" />
+        </div>
+
+        {/* google btn */}
+        <button
+          onClick={handleGoogleSignIn}
+          className="btn bg-white text-black border-[#e5e5e5]"
+        >
+          <svg
+            aria-label="Google logo"
+            width="16"
+            height="16"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+          >
+            <g>
+              <path d="m0 0H512V512H0" fill="#fff"></path>
+              <path
+                fill="#34a853"
+                d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"
+              ></path>
+              <path
+                fill="#4285f4"
+                d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"
+              ></path>
+              <path
+                fill="#fbbc02"
+                d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"
+              ></path>
+              <path
+                fill="#ea4335"
+                d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"
+              ></path>
+            </g>
+          </svg>
+          Login with Google
+        </button>
+
+        <p className="mt-2">
+          Already have an account ?{" "}
+          <Link to="/login" className="text-sky-500 hover:underline">
+            Login
+          </Link>
+        </p>
       </div>
     </div>
   );
