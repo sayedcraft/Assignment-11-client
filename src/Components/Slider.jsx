@@ -58,7 +58,7 @@ const Slider = () => {
       >
         {brandLogo.map((logo, index) => (
           <SwiperSlide key={index} className="flex justify-center items-center">
-            <img src={logo} alt="" className="h-15 w-15 object-contain" />
+            <img src={logo} alt="Logo" className="h-15 w-15 object-contain" />
           </SwiperSlide>
         ))}
       </Swiper>
