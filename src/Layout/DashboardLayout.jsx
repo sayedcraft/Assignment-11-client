@@ -1,5 +1,6 @@
 // import React from 'react';
 
+// import { LiaJediOrder } from "react-icons/lia";
 import { Link, Outlet } from "react-router";
 
 // import { Outlet } from "react-router";
@@ -49,7 +50,8 @@ const DashboardLayout = () => {
           <ul className="menu w-full grow">
             {/* List item */}
             <li>
-              <Link to='/'
+              <Link
+                to="/"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Homepage"
               >
@@ -72,6 +74,37 @@ const DashboardLayout = () => {
             </li>
 
             {/* List item */}
+            {/* User Section */}
+            <li>
+              <Link>My Order</Link>
+            </li>
+            <li>
+              <Link>My Profile</Link>
+            </li>
+            <li>
+              <Link>Invoicer</Link>
+            </li>
+            {/* Librarian Section */}
+            <li>
+              <Link>Add Book</Link>
+            </li>
+            <li>
+              <Link>My Book</Link>
+            </li>
+            <li>
+              <Link>Order</Link>
+            </li>
+            {/* Admin Section */}
+            <li>
+              <Link>All User</Link>
+            </li>
+            <li>
+              <Link>Manage Book</Link>
+            </li>
+            <li>
+              <Link>My Profile</Link>
+            </li>
+            {/* extra setting */}
             <li>
               <button
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"

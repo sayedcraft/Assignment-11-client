@@ -1,16 +1,37 @@
 // import React from 'react';
 
 import { useForm } from "react-hook-form";
+import { imageUpload } from "../../../../Util";
+import axios from "axios";
 
 const AddBook = () => {
-  const {
-    // register,
-    handleSubmit,
-    // formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
     console.log(data);
+
+    const { bookName,bookAuthor, image, status, price } = data;
+    const imageFile = image[0];
+    const imageURL = imageUpload(imageFile);
+    const bookData = {
+      image: imageURL,
+      bookName,
+      bookAuthor,
+      status,
+      price: Number(price),
+    };
+    console.log(bookData);
+
+    try {
+      const { data } = axios.post(
+        `${import.meta.env.VITE_API_URL}/books`,
+        bookData,
+      );
+
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -29,11 +50,10 @@ const AddBook = () => {
                   <span className="label-text font-semibold">Book Name</span>
                 </label>
                 <input
+                  {...register("bookName", { required: "Name is required" })}
                   type="text"
-                  name="bookName"
-                  placeholder="Enter book name"
                   className="input input-bordered w-full focus:input-primary"
-                  required
+                  placeholder="Enter your name"
                 />
               </div>
 
@@ -45,11 +65,11 @@ const AddBook = () => {
                   </span>
                 </label>
                 <input
-                  type="url"
-                  name="bookImage"
-                  placeholder="https://example.com/book-cover.jpg"
-                  className="input input-bordered w-full focus:input-primary"
-                  required
+                  type="file"
+                  {...register("image", {
+                    required: "Profile image is required",
+                  })}
+                  className="input input-bordered w-full focus:input-primary file-input"
                 />
               </div>
 
@@ -59,11 +79,10 @@ const AddBook = () => {
                   <span className="label-text font-semibold">Book Author</span>
                 </label>
                 <input
+                  {...register("bookAuthor", { required: "Name is required" })}
                   type="text"
-                  name="author"
-                  placeholder="Enter author name"
                   className="input input-bordered w-full focus:input-primary"
-                  required
+                  placeholder="Enter your name"
                 />
               </div>
 
@@ -75,6 +94,7 @@ const AddBook = () => {
                 <select
                   name="status"
                   className="select select-bordered w-full focus:select-primary"
+                  {...register("status", { required: "Name is required" })}
                 >
                   <option value="published">Published</option>
                   <option value="unpublished">Unpublished</option>
@@ -87,15 +107,10 @@ const AddBook = () => {
                   <span className="label-text font-semibold">Price ($)</span>
                 </label>
                 <input
-                  type="number"
-                  name="price"
-                  placeholder="Enter book price"
+                  {...register("price", { required: "Name is required" })}
+                  type="text"
                   className="input input-bordered w-full focus:input-primary"
-                  // value={formData.price}
-                  // onChange={handleChange}
-                  min="0"
-                  step="0.01"
-                  required
+                  placeholder="Enter your name"
                 />
               </div>
 
