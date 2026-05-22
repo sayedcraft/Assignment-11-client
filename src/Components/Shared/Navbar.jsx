@@ -9,14 +9,16 @@ const Navbar = () => {
   const links = (
     <>
       <li>
-        <a>Home</a>
+        <Link to="/">Home</Link>
       </li>
       <li>
-        <a>All Books</a>
+        <Link to="/">All Book</Link>
       </li>
-      <li>
-        <a>Dashboard</a>
+      {
+        user && <li>
+        <Link to="/dashboard">Dashboard</Link>
       </li>
+      }
     </>
   );
 
@@ -92,7 +94,12 @@ const Navbar = () => {
         </label>
         {/* ------------- */}
         {user ? (
-          <a onClick={handleSignOut} className="btn btn-sm mx-2 hover:bg-amber-500">Logout</a>
+          <a
+            onClick={handleSignOut}
+            className="btn btn-sm mx-2 hover:bg-amber-500"
+          >
+            Logout
+          </a>
         ) : (
           <Link className="btn btn-sm mx-2 hover:bg-amber-500" to="/login">
             Login
