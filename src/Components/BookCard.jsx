@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 
 const BookCard = ({ book }) => {
-  const { title, author, price, image } = book;
+  const { title, author, price, image,_id } = book;
 //   console.log(title, author, price);
 
   return (
@@ -28,7 +28,7 @@ const BookCard = ({ book }) => {
             <span className="font-sans">৳</span> {price}
           </span>
 
-          <Link className="btn btn-outline btn-sm text-sky-500 hover:text-white border-sky-500 hover:bg-sky-500 hover:border-sky-500 px-4 rounded-md transition-all duration-300">
+          <Link to={`/boodDetails/${_id}`} className="btn btn-outline btn-sm text-sky-500 hover:text-white border-sky-500 hover:bg-sky-500 hover:border-sky-500 px-4 rounded-md transition-all duration-300">
             View
           </Link>
         </div>

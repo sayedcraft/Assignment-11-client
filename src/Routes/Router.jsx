@@ -15,6 +15,7 @@ import Order from "../Pages/Dashboard/Librarian/Order";
 import AllUser from "../Pages/Dashboard/Admin/AllUser";
 import ManageBook from "../Pages/Dashboard/Admin/ManageBook";
 import AllBook from "../Pages/AllBook";
+import BookDetails from "../Pages/BookDetails";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
       {
         path:'allBook',
         Component:AllBook
+      },
+      {
+        path:'boodDetails/:id',
+        Component:BookDetails
       }
     ],
   },
