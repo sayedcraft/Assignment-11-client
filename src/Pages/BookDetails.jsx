@@ -2,9 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useParams } from "react-router";
 import Loading from "../Components/Loading";
+import useAuth from "../hook/useAuth";
 
 const BookDetails = () => {
   const { id } = useParams();
+  const { user } = useAuth();
 
   const {
     data: book = {},
@@ -18,38 +20,62 @@ const BookDetails = () => {
     },
   });
 
-  const {author,description,image,librarian,price,title}= book
+  const { _id, author, description, image, librarian, price, title } = book;
 
   // Mock authenticated user context (Apnar dynamic authentication system/context thakle user data oikhan theke ashbe)
 
   // Form Submission Handler
-  const handlePlaceOrder = (e) => {
-    e.preventDefault();
-    const form = e.target;
+  // const handlePlaceOrder = async (e) => {
+  //   e.preventDefault();
+  //   const form = e.target;
 
-    const orderData = {
-      bookId: id,
-      bookTitle: book.title,
-      price: book.price,
-      buyerName: librarian.name,
-      buyerEmail: librarian.email,
-      phone: form.phone.value,
-      address: form.address.value,
-      orderDate: new Date(),
+  //   const orderData = {
+  //     bookId: id,
+  //     bookTitle: book.title,
+  //     price: book.price,
+  //     buyerName: librarian.name,
+  //     buyerEmail: librarian.email,
+  //     phone: form.phone.value,
+  //     address: form.address.value,
+  //     orderDate: new Date(),
+  //   };
+
+  //   console.log("Submitting Order Data:", orderData);
+
+  //   // Ekhane apnar order post api request handle korte parben, example:
+  //   // const result = await axios.post(`${import.meta.env.VITE_API_URL}/create-checout-session`, orderData)
+
+  //   alert("Order Placed Successfully!");
+  //   document.getElementById("order_modal").close();
+  //   form.reset();
+  // };
+
+  const handlePayment = async () => {
+    const paymentInfo = {
+      bookId: _id,
+      author,
+      description,
+      image,
+      price,
+      title,
+      librarian: {
+        Lname: user?.displayName  || "No Name Provided",
+        Lemail: user?.email || "No Email Provided",
+        Limage: user?.photoURL  || "",
+      },
     };
 
-    console.log("Submitting Order Data:", orderData);
+    const {data} = await axios.post(
+      `${import.meta.env.VITE_API_URL}/create-checout-session`,
+      paymentInfo,
+    );
 
-    // Ekhane apnar order post api request handle korte parben, example:
-    // axios.post(`${import.meta.env.VITE_API_URL}/orders`, orderData).then(...)
-
-    alert("Order Placed Successfully!");
-    document.getElementById("order_modal").close();
-    form.reset();
+    window.location.href=data.url
+    // console.log(data.url);
   };
 
   if (isLoading) {
-    return <Loading></Loading>
+    return <Loading></Loading>;
   }
 
   return (
@@ -104,8 +130,7 @@ const BookDetails = () => {
                   Description
                 </h3>
                 <p className="text-gray-600 leading-relaxed text-sm">
-                  {description ||
-                    "No description available for this book."}
+                  {description || "No description available for this book."}
                 </p>
               </div>
             </div>
@@ -144,7 +169,7 @@ const BookDetails = () => {
           </p>
 
           {/* Checkout Form Container */}
-          <form onSubmit={handlePlaceOrder} className="space-y-4">
+          <form className="space-y-4">
             {/* Name Input (Read-only) */}
             <div className="form-control w-full">
               <label className="label py-1">
@@ -154,7 +179,7 @@ const BookDetails = () => {
               </label>
               <input
                 type="text"
-                value={librarian.name}
+                value={librarian?.name || ""}
                 readOnly
                 className="input input-bordered w-full bg-gray-50 text-gray-500 border-gray-200 cursor-not-allowed text-sm rounded-xl focus:outline-none"
               />
@@ -169,7 +194,7 @@ const BookDetails = () => {
               </label>
               <input
                 type="email"
-                value={librarian.email}
+                value={librarian?.email || ""}
                 readOnly
                 className="input input-bordered w-full bg-gray-50 text-gray-500 border-gray-200 cursor-not-allowed text-sm rounded-xl focus:outline-none"
               />
@@ -210,6 +235,7 @@ const BookDetails = () => {
             {/* Submission Button */}
             <div className="pt-2">
               <button
+                onClick={handlePayment}
                 type="submit"
                 className="btn btn-block bg-[#003366] hover:bg-[#002244] border-none text-white font-semibold rounded-xl tracking-wide shadow-md"
               >

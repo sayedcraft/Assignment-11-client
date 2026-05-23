@@ -16,6 +16,8 @@ import AllUser from "../Pages/Dashboard/Admin/AllUser";
 import ManageBook from "../Pages/Dashboard/Admin/ManageBook";
 import AllBook from "../Pages/AllBook";
 import BookDetails from "../Pages/BookDetails";
+import PaymentSuccess from "../Pages/Payment/PaymentSuccess";
+import PaymentCancel from "../Pages/Payment/PaymentCancel";
 
 export const router = createBrowserRouter([
   {
@@ -27,13 +29,21 @@ export const router = createBrowserRouter([
         Component: Home,
       },
       {
-        path:'allBook',
-        Component:AllBook
+        path: "allBook",
+        Component: AllBook,
       },
       {
-        path:'boodDetails/:id',
-        Component:BookDetails
-      }
+        path: "boodDetails/:id",
+        Component: BookDetails,
+      },
+      {
+        path: "paymentSuccess",
+        Component: PaymentSuccess,
+      },
+      {
+        path: "paymentCancel",
+        Component: PaymentCancel,
+      },
     ],
   },
   {
