@@ -3,7 +3,7 @@
 const Loading = () => {
   return (
     <div className="min-h-screen min-w-screen flex justify-center items-center">
-      <span className="loading loading-spinner text-primary loading-xl"></span>
+      <span className="loading loading-spinner text-sky-500 loading-xl"></span>
     </div>
   );
 };

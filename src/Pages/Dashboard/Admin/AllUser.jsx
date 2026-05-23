@@ -1,11 +1,11 @@
 // import React from 'react';
 
-const MyOrder = () => {
+const AllUser = () => {
     return (
         <div>
-            my order-- user
+            all user - admin
         </div>
     );
 };
 
-export default MyOrder;
+export default AllUser;

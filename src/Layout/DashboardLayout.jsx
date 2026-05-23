@@ -1,6 +1,13 @@
 // import React from 'react';
 
 // import { LiaJediOrder } from "react-icons/lia";
+import { AiFillProduct } from "react-icons/ai";
+import { BiSolidBookAdd } from "react-icons/bi";
+import { FaRegCreditCard, FaUsers } from "react-icons/fa";
+import { IoIosBookmarks } from "react-icons/io";
+import { IoPersonCircle } from "react-icons/io5";
+import { MdLibraryBooks } from "react-icons/md";
+import { TbTruckDelivery } from "react-icons/tb";
 import { Link, Outlet } from "react-router";
 
 // import { Outlet } from "react-router";
@@ -76,34 +83,88 @@ const DashboardLayout = () => {
             {/* List item */}
             {/* User Section */}
             <li>
-              <Link>My Order</Link>
+              <Link
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="My Orders"
+                to="/dashboard/myOrder"
+              >
+                <AiFillProduct />
+                <span className="is-drawer-close:hidden">My Orders</span>
+              </Link>
             </li>
             <li>
-              <Link>My Profile</Link>
+              <Link
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="My Profile"
+                to="/dashboard/myProfile"
+              >
+                <IoPersonCircle />
+                <span className="is-drawer-close:hidden">My Profile</span>
+              </Link>
             </li>
             <li>
-              <Link>Invoicer</Link>
+              <Link
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Payment History"
+                to="/dashboard/invoice"
+              >
+                <FaRegCreditCard />
+                <span className="is-drawer-close:hidden">Invoice</span>
+              </Link>
             </li>
             {/* Librarian Section */}
             <li>
-              <Link>Add Book</Link>
+              <Link
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Add Books"
+                to="/dashboard/addBook"
+              >
+                <BiSolidBookAdd />
+                <span className="is-drawer-close:hidden">Add Books</span>
+              </Link>
             </li>
             <li>
-              <Link>My Book</Link>
+              <Link
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="My Books"
+                to="/dashboard/myBook"
+              >
+                <IoIosBookmarks />
+                <span className="is-drawer-close:hidden">My Books</span>
+              </Link>
             </li>
             <li>
-              <Link>Order</Link>
+              <Link
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Orders"
+                to="/dashboard/order"
+              >
+                <TbTruckDelivery />
+                <span className="is-drawer-close:hidden">Orders</span>
+              </Link>
             </li>
             {/* Admin Section */}
             <li>
-              <Link>All User</Link>
+              <Link
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="All Users"
+                to="/dashboard/allUser"
+              >
+                <FaUsers />
+                <span className="is-drawer-close:hidden">All Users</span>
+              </Link>
             </li>
             <li>
-              <Link>Manage Book</Link>
+              <Link
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Manage Books"
+                to="/dashboard/manageBook"
+              >
+                <MdLibraryBooks />
+                <span className="is-drawer-close:hidden">Manage Books</span>
+              </Link>
             </li>
-            <li>
-              <Link>My Profile</Link>
-            </li>
+            
             {/* extra setting */}
             <li>
               <button

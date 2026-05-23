@@ -12,7 +12,7 @@ const Navbar = () => {
         <Link to="/">Home</Link>
       </li>
       <li>
-        <Link to="/">All Book</Link>
+        <Link to="/allBook">All Book</Link>
       </li>
       {
         user && <li>
