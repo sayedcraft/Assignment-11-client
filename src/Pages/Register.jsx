@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import useAuth from "../hook/useAuth";
 import { Link } from "react-router";
 import axios from "axios";
+import { saveOrUpdateUser } from "../../Util";
 
 const Register = () => {
   const {
@@ -13,38 +14,73 @@ const Register = () => {
   } = useForm();
   const { registerUser, sigInWIthGoogle, updateUserProfile } = useAuth();
 
-  const handleRegister = (data) => {
-    console.log(data.photo[0]);
+  const handleRegister = async (data) => {
+    console.log("Registration Data:", data);
+
     const profileImg = data.photo[0];
+    if (!profileImg) {
+      console.error("No profile image selected");
+      return;
+    }
 
-    registerUser(data.email, data.password)
-      .then((res) => {
-        console.log(res.user);
+    try {
+      // 1. Firebase ba Auth System-e User Register kora
+      const authResult = await registerUser(data.email, data.password);
+      console.log("User Registered Successfully:", authResult.user);
 
-        const formData = new FormData();
-        formData.append("image", profileImg);
+      // 2. Image Upload er jonno FormData ready kora
+      const formData = new FormData();
+      formData.append("image", profileImg);
 
-        const inageApiUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host}`;
-        axios.post(inageApiUrl, formData).then((res) => {
-          console.log(res.data.data.url);
+      // 3. ImgBB API-te image host kora
+      const imageApiUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host}`;
+      const imgbbResponse = await axios.post(imageApiUrl, formData);
+      const uploadedImageUrl = imgbbResponse.data.data.url;
+      console.log("Image Hosted URL:", uploadedImageUrl);
 
-          const userProfile = {
-            displayName: data.name,
-            photoURL: res.data.data.url,
-          };
-          updateUserProfile(userProfile)
-            .then(() => console.log("user profile updated"))
-            .catch((err) => console.log(err));
-        });
-      })
-      .catch((err) => console.log(err));
+      // 4. User Profile (Name & Photo) Update kora
+      const userProfile = {
+        displayName: data.name,
+        photoURL: uploadedImageUrl,
+      };
+
+      const userPayload = {
+        name: data.name,
+        email: data.email,
+        image: uploadedImageUrl,
+      };
+
+      await saveOrUpdateUser(userPayload);
+
+      await updateUserProfile(userProfile);
+      console.log("User profile updated successfully!");
+
+      // (Optional) Ekhane apni success alert ba dashboard-e navigate korte paren
+    } catch (error) {
+      // Shob dhorner Error (Auth fail, ImgBB fail, ba Profile update fail) ekhane dhora porbe
+      console.error("Registration Process Failed:", error.message || error);
+      // (Optional) Ekhane user-ke kono toast ba error message dekhate paren
+    }
   };
 
-  const handleGoogleSignIn = () => {
-    sigInWIthGoogle()
-      .then((res) => console.log(res.user))
-      .catch((err) => console.log(err));
-  };
+  const handleGoogleSignIn = async () => {
+  try {
+    const res = await sigInWIthGoogle();
+    const user = res.user;
+
+    const userPayload = {
+      name: user.displayName,
+      email: user.email,
+      image: user.photoURL,
+    };
+
+    await saveOrUpdateUser(userPayload);
+
+
+  } catch (err) {
+    console.error("Google Sign-In Failed:", err.message || err);
+  }
+};
 
   return (
     <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl mx-auto">
