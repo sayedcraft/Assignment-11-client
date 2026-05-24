@@ -24,7 +24,7 @@ const BookDetails = () => {
 
 
   // Form Submission Handler
-  
+
   const handlePayment = async (e) => {
     e.preventDefault()
     const paymentInfo = {
@@ -34,6 +34,9 @@ const BookDetails = () => {
       image,
       price,
       title,
+      // customer:{
+      //   email:user?.email
+      // },
       librarian: {
         Lname: user?.displayName  || "No Name Provided",
         Lemail: user?.email || "No Email Provided",
