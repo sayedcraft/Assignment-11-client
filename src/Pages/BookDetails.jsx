@@ -22,35 +22,11 @@ const BookDetails = () => {
 
   const { _id, author, description, image, librarian, price, title } = book;
 
-  // Mock authenticated user context (Apnar dynamic authentication system/context thakle user data oikhan theke ashbe)
 
   // Form Submission Handler
-  // const handlePlaceOrder = async (e) => {
-  //   e.preventDefault();
-  //   const form = e.target;
-
-  //   const orderData = {
-  //     bookId: id,
-  //     bookTitle: book.title,
-  //     price: book.price,
-  //     buyerName: librarian.name,
-  //     buyerEmail: librarian.email,
-  //     phone: form.phone.value,
-  //     address: form.address.value,
-  //     orderDate: new Date(),
-  //   };
-
-  //   console.log("Submitting Order Data:", orderData);
-
-  //   // Ekhane apnar order post api request handle korte parben, example:
-  //   // const result = await axios.post(`${import.meta.env.VITE_API_URL}/create-checout-session`, orderData)
-
-  //   alert("Order Placed Successfully!");
-  //   document.getElementById("order_modal").close();
-  //   form.reset();
-  // };
-
-  const handlePayment = async () => {
+  
+  const handlePayment = async (e) => {
+    e.preventDefault()
     const paymentInfo = {
       bookId: _id,
       author,
