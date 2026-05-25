@@ -9,10 +9,15 @@ import { IoPersonCircle } from "react-icons/io5";
 import { MdLibraryBooks } from "react-icons/md";
 import { TbTruckDelivery } from "react-icons/tb";
 import { Link, Outlet } from "react-router";
+import useRole from "../hook/useRole";
+import Loading from "../Components/Loading";
 
 // import { Outlet } from "react-router";
 
 const DashboardLayout = () => {
+  const [role, isRoleLoading] = useRole();
+
+  if(isRoleLoading) return <Loading></Loading>
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -82,89 +87,111 @@ const DashboardLayout = () => {
 
             {/* List item */}
             {/* User Section */}
-            <li>
-              <Link
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="My Orders"
-                to="/dashboard/myOrder"
-              >
-                <AiFillProduct />
-                <span className="is-drawer-close:hidden">My Orders</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="My Profile"
-                to="/dashboard/myProfile"
-              >
-                <IoPersonCircle />
-                <span className="is-drawer-close:hidden">My Profile</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Payment History"
-                to="/dashboard/invoice"
-              >
-                <FaRegCreditCard />
-                <span className="is-drawer-close:hidden">Invoice</span>
-              </Link>
-            </li>
+            {role === "user" && (
+              <div>
+                <li>
+                  <Link
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Orders"
+                    to="/dashboard/myOrder"
+                  >
+                    <AiFillProduct />
+                    <span className="is-drawer-close:hidden">My Orders</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Profile"
+                    to="/dashboard/myProfile"
+                  >
+                    <IoPersonCircle />
+                    <span className="is-drawer-close:hidden">My Profile</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Payment History"
+                    to="/dashboard/invoice"
+                  >
+                    <FaRegCreditCard />
+                    <span className="is-drawer-close:hidden">Invoice</span>
+                  </Link>
+                </li>
+              </div>
+            )}
             {/* Librarian Section */}
-            <li>
-              <Link
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Add Books"
-                to="/dashboard/addBook"
-              >
-                <BiSolidBookAdd />
-                <span className="is-drawer-close:hidden">Add Books</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="My Books"
-                to="/dashboard/myBook"
-              >
-                <IoIosBookmarks />
-                <span className="is-drawer-close:hidden">My Books</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Orders"
-                to="/dashboard/order"
-              >
-                <TbTruckDelivery />
-                <span className="is-drawer-close:hidden">Orders</span>
-              </Link>
-            </li>
+            {role === "librarian" && (
+              <div>
+                <li>
+                  <Link
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Add Books"
+                    to="/dashboard/addBook"
+                  >
+                    <BiSolidBookAdd />
+                    <span className="is-drawer-close:hidden">Add Books</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Books"
+                    to="/dashboard/myBook"
+                  >
+                    <IoIosBookmarks />
+                    <span className="is-drawer-close:hidden">My Books</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Orders"
+                    to="/dashboard/order"
+                  >
+                    <TbTruckDelivery />
+                    <span className="is-drawer-close:hidden">Orders</span>
+                  </Link>
+                </li>
+              </div>
+            )}
             {/* Admin Section */}
-            <li>
-              <Link
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="All Users"
-                to="/dashboard/allUser"
-              >
-                <FaUsers />
-                <span className="is-drawer-close:hidden">All Users</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Manage Books"
-                to="/dashboard/manageBook"
-              >
-                <MdLibraryBooks />
-                <span className="is-drawer-close:hidden">Manage Books</span>
-              </Link>
-            </li>
-            
+            {role === "admin" && (
+              <div>
+                <li>
+                  <Link
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="All Users"
+                    to="/dashboard/allUser"
+                  >
+                    <FaUsers />
+                    <span className="is-drawer-close:hidden">All Users</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Manage Books"
+                    to="/dashboard/manageBook"
+                  >
+                    <MdLibraryBooks />
+                    <span className="is-drawer-close:hidden">Manage Books</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Profile"
+                    to="/dashboard/myProfile"
+                  >
+                    <IoPersonCircle />
+                    <span className="is-drawer-close:hidden">My Profile</span>
+                  </Link>
+                </li>
+              </div>
+            )}
+
             {/* extra setting */}
             <li>
               <button

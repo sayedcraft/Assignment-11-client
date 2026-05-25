@@ -3,6 +3,7 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../hook/useAuth";
 import { Link } from "react-router";
+import { saveOrUpdateUser } from "../../Util";
 
 const Login = () => {
   const {
@@ -13,17 +14,45 @@ const Login = () => {
 
   const { singInUser, sigInWIthGoogle } = useAuth();
 
-  const handleLogin = (data) => {
-    console.log(data);
-    singInUser(data.email, data.password)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+// 1. Email and Password Login Handler
+  const handleLogin = async (data) => {
+    
+    try {
+      const res = await singInUser(data.email, data.password);
+      const user = res.user;
+
+      const userPayload = {
+        name: user.displayName || "Existing User",
+        email: user.email,
+        image: user.photoURL || "",
+      };
+
+      await saveOrUpdateUser(userPayload);
+
+
+    } catch (err) {
+      console.error('from error', err.message || err);
+    }
   };
 
-  const handleGoogleSignIn = () => {
-    sigInWIthGoogle()
-      .then((res) => console.log(res.user))
-      .catch((err) => console.log(err));
+  // 2. Google Sign-In Handler
+  const handleGoogleSignIn = async () => {
+    try {
+      // Google Popup open kore login korano
+      const res = await sigInWIthGoogle();
+      const user = res.user;
+
+      const userPayload = {
+        name: user.displayName,
+        email: user.email,
+        image: user.photoURL,
+      };
+
+      await saveOrUpdateUser(userPayload);
+
+    } catch (err) {
+      console.error("err msg", err.message || err);
+    }
   };
 
   return (
