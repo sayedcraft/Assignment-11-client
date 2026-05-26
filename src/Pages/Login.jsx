@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import useAuth from "../hook/useAuth";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { saveOrUpdateUser } from "../../Util";
 
 const Login = () => {
@@ -13,6 +13,7 @@ const Login = () => {
   } = useForm();
 
   const { singInUser, sigInWIthGoogle } = useAuth();
+  const navigate = useNavigate();
 
 // 1. Email and Password Login Handler
   const handleLogin = async (data) => {
@@ -28,6 +29,7 @@ const Login = () => {
       };
 
       await saveOrUpdateUser(userPayload);
+      navigate("/");
 
 
     } catch (err) {
@@ -49,6 +51,7 @@ const Login = () => {
       };
 
       await saveOrUpdateUser(userPayload);
+      navigate("/");
 
     } catch (err) {
       console.error("err msg", err.message || err);

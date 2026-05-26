@@ -6,6 +6,10 @@ import logo from "/logo.png";
 const Navbar = () => {
   const { user, signOutUser } = useAuth();
 
+  // const { metadata } = user;
+
+  console.log(user);
+
   const links = (
     <>
       <li>
@@ -14,11 +18,11 @@ const Navbar = () => {
       <li>
         <Link to="/allBook">All Book</Link>
       </li>
-      {
-        user && <li>
-        <Link to="/dashboard">Dashboard</Link>
-      </li>
-      }
+      {user && (
+        <li>
+          <Link to="/dashboard">Dashboard</Link>
+        </li>
+      )}
     </>
   );
 
@@ -64,14 +68,14 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
-      <div className="navbar-end lg:mr-10 md:mr-7">
-        {/* theme btn from daisyui*/}
-        <label className="swap swap-rotate ">
+      <div className="navbar-end lg:mr-10 md:mr-7 gap-2">
+        {/* theme btn from daisyui - updated value */}
+        <label className="swap swap-rotate mr-2">
           {/* this hidden checkbox controls the state */}
           <input
             type="checkbox"
             className="theme-controller"
-            value="synthwave"
+            value="luxury" 
           />
 
           {/* sun icon */}
@@ -92,14 +96,46 @@ const Navbar = () => {
             <path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
           </svg>
         </label>
-        {/* ------------- */}
+
         {user ? (
-          <a
-            onClick={handleSignOut}
-            className="btn btn-sm mx-2 hover:bg-amber-500"
-          >
-            Logout
-          </a>
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar border border-sky-400"
+            >
+              <div className="w-9 rounded-full">
+                <img
+                  alt="User Profile"
+                  src={
+                    user?.photoURL ||
+                    "https://i.ibb.co/mJL1vY0/user-placeholder.png"
+                  }
+                />
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content bg-base-100 rounded-xl z-10 mt-3 w-52 p-3 shadow border border-gray-100"
+            >
+              <div className="px-2 py-1.5 border-b border-gray-100 mb-2">
+                <p className="font-bold text-gray-800 text-sm truncate">
+                  {user?.displayName || "User"}
+                </p>
+                <p className="text-xs text-gray-400 truncate mt-0.5">
+                  {user?.email}
+                </p>
+              </div>
+              <li>
+                <a
+                  onClick={handleSignOut}
+                  className="btn btn-sm bg-red-50 hover:bg-red-100 text-red-600 border border-red-100 font-semibold rounded-lg mt-1 w-full justify-center"
+                >
+                  Logout
+                </a>
+              </li>
+            </ul>
+          </div>
         ) : (
           <Link className="btn btn-sm mx-2 hover:bg-amber-500" to="/login">
             Login

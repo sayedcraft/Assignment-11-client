@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import useAuth from "../hook/useAuth";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router"; 
 import axios from "axios";
 import { saveOrUpdateUser } from "../../Util";
 
@@ -13,6 +13,7 @@ const Register = () => {
     formState: { errors },
   } = useForm();
   const { registerUser, sigInWIthGoogle, updateUserProfile } = useAuth();
+  const navigate = useNavigate(); 
 
   const handleRegister = async (data) => {
     console.log("Registration Data:", data);
@@ -55,32 +56,32 @@ const Register = () => {
       await updateUserProfile(userProfile);
       console.log("User profile updated successfully!");
 
-      // (Optional) Ekhane apni success alert ba dashboard-e navigate korte paren
+      navigate("/");
+
     } catch (error) {
-      // Shob dhorner Error (Auth fail, ImgBB fail, ba Profile update fail) ekhane dhora porbe
       console.error("Registration Process Failed:", error.message || error);
-      // (Optional) Ekhane user-ke kono toast ba error message dekhate paren
     }
   };
 
   const handleGoogleSignIn = async () => {
-  try {
-    const res = await sigInWIthGoogle();
-    const user = res.user;
+    try {
+      const res = await sigInWIthGoogle();
+      const user = res.user;
 
-    const userPayload = {
-      name: user.displayName,
-      email: user.email,
-      image: user.photoURL,
-    };
+      const userPayload = {
+        name: user.displayName,
+        email: user.email,
+        image: user.photoURL,
+      };
 
-    await saveOrUpdateUser(userPayload);
+      await saveOrUpdateUser(userPayload);
+      
+      navigate("/");
 
-
-  } catch (err) {
-    console.error("Google Sign-In Failed:", err.message || err);
-  }
-};
+    } catch (err) {
+      console.error("Google Sign-In Failed:", err.message || err);
+    }
+  };
 
   return (
     <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl mx-auto">
@@ -95,7 +96,7 @@ const Register = () => {
               className="input"
               placeholder="Enter your name"
             />
-            {errors.email && (
+            {errors.name && (
               <p className="text-xs text-red-500 mt-1">{errors.name.message}</p>
             )}
             {/* --Email-- */}
