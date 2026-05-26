@@ -20,7 +20,7 @@ const BookDetails = () => {
     },
   });
 
-  const { _id, author, description, image, librarian, price, title } = book;
+  const { _id, author, description, image,  price, title } = book;
 
 
   // Form Submission Handler
@@ -158,7 +158,7 @@ const BookDetails = () => {
               </label>
               <input
                 type="text"
-                value={librarian?.name || ""}
+                value={user?.name || ""}
                 readOnly
                 className="input input-bordered w-full bg-gray-50 text-gray-500 border-gray-200 cursor-not-allowed text-sm rounded-xl focus:outline-none"
               />
@@ -173,7 +173,7 @@ const BookDetails = () => {
               </label>
               <input
                 type="email"
-                value={librarian?.email || ""}
+                value={user?.email || ""}
                 readOnly
                 className="input input-bordered w-full bg-gray-50 text-gray-500 border-gray-200 cursor-not-allowed text-sm rounded-xl focus:outline-none"
               />

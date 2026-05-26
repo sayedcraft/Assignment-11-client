@@ -5,7 +5,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 
-const AddBooks = () => {
+const AddBook = () => {
   const { user } = useAuth();
   const {
     register,
@@ -186,4 +186,4 @@ const AddBooks = () => {
   );
 };
 
-export default AddBooks;
+export default AddBook;

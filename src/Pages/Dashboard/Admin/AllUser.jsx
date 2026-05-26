@@ -2,14 +2,16 @@ import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../../Components/Loading";
 import useAxiosSecure from "../../../hook/useAxiosSecure";
+import useAuth from "../../../hook/useAuth";
 
 const AllUser = () => {
   const axiosSecure = useAxiosSecure(); 
+  const { user } = useAuth();
 
   const { data: users = [], refetch, isLoading } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await axiosSecure.get('/users'); 
+      const res = await axiosSecure.get(`/users?email=${user?.email}`); 
       return res.data;
     }
   });
@@ -56,7 +58,7 @@ const AllUser = () => {
           <table className="table table-zebra w-full">
             <thead>
               <tr>
-                <th>#</th>
+                <th>SL..</th>
                 <th>User</th>
                 <th>Email</th>
                 <th>Role</th>

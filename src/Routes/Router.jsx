@@ -6,7 +6,6 @@ import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../Layout/DashboardLayout";
-import MyOrder from "../Pages/Dashboard/User/MyOrder";
 import AddBook from "../Pages/Dashboard/Librarian/AddBook";
 import MyProfile from "../Pages/Dashboard/MyProfile";
 import Invoice from "../Pages/Dashboard/User/Invoice";
@@ -18,6 +17,10 @@ import AllBook from "../Pages/AllBook";
 import BookDetails from "../Pages/BookDetails";
 import PaymentSuccess from "../Pages/Payment/PaymentSuccess";
 import PaymentCancel from "../Pages/Payment/PaymentCancel";
+import UserRoute from "./UserRoute";
+import MyOrder from "../Pages/Dashboard/User/MyOrder";
+import LibrarianRoute from "./LibrarianRoute";
+import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -69,36 +72,82 @@ export const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "myOrder",
-        Component: MyOrder,
+        path: "myProfile",
+        element: (
+          <PrivateRoute>
+            <MyProfile></MyProfile>
+          </PrivateRoute>
+        ),
       },
       {
-        path: "myProfile",
-        Component: MyProfile,
+        path: "myOrder",
+        element: (
+          <PrivateRoute>
+            <UserRoute>
+              <MyOrder></MyOrder>
+            </UserRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "invoice",
-        Component: Invoice,
+        element: (
+          <PrivateRoute>
+            <UserRoute>
+              <Invoice></Invoice>
+            </UserRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "addBook",
-        Component: AddBook,
+        element: (
+          <PrivateRoute>
+            <LibrarianRoute>
+              <AddBook></AddBook>
+            </LibrarianRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "myBook",
-        Component: MyBook,
+        element: (
+          <PrivateRoute>
+            <LibrarianRoute>
+              <MyBook></MyBook>
+            </LibrarianRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "order",
-        Component: Order,
+        element: (
+          <PrivateRoute>
+            <LibrarianRoute>
+              <Order></Order>
+            </LibrarianRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "allUser",
-        Component: AllUser,
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <AllUser></AllUser>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "manageBook",
-        Component: ManageBook,
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <ManageBook></ManageBook>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
       },
     ],
   },
