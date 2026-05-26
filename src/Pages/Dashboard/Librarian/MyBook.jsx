@@ -1,29 +1,27 @@
-// import React from 'react';
-
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hook/useAuth";
 import axios from "axios";
 import Loading from "../../../Components/Loading";
+import { Link } from "react-router"; 
 
 const MyBook = () => {
-    const { user } = useAuth();
+  const { user } = useAuth();
   const { data: books = [], isLoading } = useQuery({
     queryKey: ["books", user?.email],
     queryFn: async () => {
       const result = await axios(
-        `${import.meta.env.VITE_API_URL}/myBook/${user?.email}`,
+        `${import.meta.env.VITE_API_URL}/myBook/${user?.email}`
       );
       return result.data;
     },
   });
-  console.log(books);
 
   if (isLoading) return <Loading></Loading>;
-    return (
-        <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+  
+  return (
+    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         
-        {/* Table Header Section */}
         <div className="p-6 border-b border-gray-100 bg-white sm:flex sm:items-center sm:justify-between">
           <div>
             <h2 className="text-xl font-extrabold text-[#003366] tracking-tight">
@@ -38,7 +36,6 @@ const MyBook = () => {
           </span>
         </div>
 
-        {/* Responsive Wrapper */}
         <div className="overflow-x-auto">
           <table className="table w-full text-left border-collapse">
             {/* Table Head */}
@@ -98,10 +95,10 @@ const MyBook = () => {
                     {book.price}
                   </td>
 
-                  {/* Edit Action Button */}
+                 
                   <td className="py-4 px-6 text-center">
-                    <button
-                    //   onClick={() => handleEdit(book._id)}
+                    <Link
+                      to={`/dashboard/updateBook/${book._id}`} 
                       className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-amber-600 bg-amber-50 hover:bg-amber-100 border border-amber-200 rounded-lg shadow-xs transition-all duration-200 active:scale-95"
                     >
                       <svg
@@ -119,7 +116,7 @@ const MyBook = () => {
                         />
                       </svg>
                       Edit
-                    </button>
+                    </Link>
                   </td>
                 </tr>
               ))}
@@ -135,7 +132,7 @@ const MyBook = () => {
         )}
       </div>
     </div>
-    );
+  );
 };
 
 export default MyBook;

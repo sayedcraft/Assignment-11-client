@@ -21,6 +21,7 @@ import UserRoute from "./UserRoute";
 import MyOrder from "../Pages/Dashboard/User/MyOrder";
 import LibrarianRoute from "./LibrarianRoute";
 import AdminRoute from "./AdminRoute";
+import UpdateBook from "../Pages/Dashboard/Librarian/UpdateBook";
 
 export const router = createBrowserRouter([
   {
@@ -115,6 +116,16 @@ export const router = createBrowserRouter([
           <PrivateRoute>
             <LibrarianRoute>
               <MyBook></MyBook>
+            </LibrarianRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "updateBook/:id",
+        element: (
+          <PrivateRoute>
+            <LibrarianRoute>
+              <UpdateBook></UpdateBook>
             </LibrarianRoute>
           </PrivateRoute>
         ),
