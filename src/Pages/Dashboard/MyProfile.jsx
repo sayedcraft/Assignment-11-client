@@ -40,7 +40,6 @@ const MyProfile = () => {
 
           <hr className="border-gray-100 my-6" />
 
-          {/* User Meta Information Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="p-4 rounded-xl bg-gray-50 border border-gray-100">
               <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">
