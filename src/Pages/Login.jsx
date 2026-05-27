@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import useAuth from "../hook/useAuth";
 import { Link, useNavigate } from "react-router";
 import { saveOrUpdateUser } from "../../Util";
+import Swal from "sweetalert2"; 
 
 const Login = () => {
   const {
@@ -15,9 +16,8 @@ const Login = () => {
   const { singInUser, sigInWIthGoogle } = useAuth();
   const navigate = useNavigate();
 
-// 1. Email and Password Login Handler
+  // 1. Email and Password Login Handler
   const handleLogin = async (data) => {
-    
     try {
       const res = await singInUser(data.email, data.password);
       const user = res.user;
@@ -29,18 +29,32 @@ const Login = () => {
       };
 
       await saveOrUpdateUser(userPayload);
-      navigate("/");
 
+      Swal.fire({
+        title: "Login Successful!",
+        text: `Welcome back, ${user.displayName || "User"}!`,
+        icon: "success",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+
+      navigate("/");
 
     } catch (err) {
       console.error('from error', err.message || err);
+      
+      Swal.fire({
+        title: "Login Failed!",
+        text: err.message || "Something went wrong. Please try again.",
+        icon: "error",
+        confirmButtonColor: "#3085d6",
+      });
     }
   };
 
   // 2. Google Sign-In Handler
   const handleGoogleSignIn = async () => {
     try {
-      // Google Popup open kore login korano
       const res = await sigInWIthGoogle();
       const user = res.user;
 
@@ -51,10 +65,26 @@ const Login = () => {
       };
 
       await saveOrUpdateUser(userPayload);
+
+      Swal.fire({
+        title: "Login Successful!",
+        text: `Welcome back, ${user.displayName}!`,
+        icon: "success",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+
       navigate("/");
 
     } catch (err) {
       console.error("err msg", err.message || err);
+      
+      Swal.fire({
+        title: "Google Sign-In Failed!",
+        text: err.message || "Could not connect with Google.",
+        icon: "error",
+        confirmButtonColor: "#3085d6",
+      });
     }
   };
 

@@ -138,6 +138,16 @@ const DashboardLayout = () => {
                 <li>
                   <Link
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Profile"
+                    to="/dashboard/myProfile"
+                  >
+                    <IoPersonCircle />
+                    <span className="is-drawer-close:hidden">My Profile</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="My Books"
                     to="/dashboard/myBook"
                   >

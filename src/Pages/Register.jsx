@@ -5,6 +5,7 @@ import useAuth from "../hook/useAuth";
 import { Link, useNavigate } from "react-router"; 
 import axios from "axios";
 import { saveOrUpdateUser } from "../../Util";
+import Swal from "sweetalert2"; 
 
 const Register = () => {
   const {
@@ -21,6 +22,12 @@ const Register = () => {
     const profileImg = data.photo[0];
     if (!profileImg) {
       console.error("No profile image selected");
+      Swal.fire({
+        title: "Error!",
+        text: "Please select a profile image.",
+        icon: "warning",
+        confirmButtonColor: "#3085d6",
+      });
       return;
     }
 
@@ -56,10 +63,25 @@ const Register = () => {
       await updateUserProfile(userProfile);
       console.log("User profile updated successfully!");
 
+      Swal.fire({
+        title: "Registration Successful!",
+        text: `Welcome, ${data.name}! Your account has been created.`,
+        icon: "success",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+
       navigate("/");
 
     } catch (error) {
       console.error("Registration Process Failed:", error.message || error);
+      
+      Swal.fire({
+        title: "Registration Failed!",
+        text: error.message || "Something went wrong during registration.",
+        icon: "error",
+        confirmButtonColor: "#d33",
+      });
     }
   };
 
@@ -76,10 +98,25 @@ const Register = () => {
 
       await saveOrUpdateUser(userPayload);
       
+      Swal.fire({
+        title: "Login Successful!",
+        text: `Welcome, ${user.displayName}!`,
+        icon: "success",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+
       navigate("/");
 
     } catch (err) {
       console.error("Google Sign-In Failed:", err.message || err);
+      
+      Swal.fire({
+        title: "Google Sign-In Failed!",
+        text: err.message || "Could not connect with Google.",
+        icon: "error",
+        confirmButtonColor: "#d33",
+      });
     }
   };
 

@@ -20,7 +20,7 @@ const Navbar = () => {
       </li>
       {user && (
         <li>
-          <Link to="/dashboard">Dashboard</Link>
+          <Link to="/dashboard/myProfile">Dashboard</Link>
         </li>
       )}
     </>
@@ -61,9 +61,9 @@ const Navbar = () => {
           </ul>
         </div>
         <img src={logo} className="h-10 w-10" alt="" />
-        <a className="text-xl font-bold">
+        <Link to='/' className="text-xl font-bold">
           Book<span className="text-sky-500">Courier</span>
-        </a>
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
