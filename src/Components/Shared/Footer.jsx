@@ -1,60 +1,110 @@
-// import React from 'react';
+import { Link } from "react-router";
+import { FaFacebookF, FaTwitter, FaYoutube, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <div>
-      <footer className="footer footer-horizontal footer-center  text-base-content rounded p-10 bg-sky-100">
-        <nav className="grid grid-flow-col gap-4">
-          <a className="link link-hover">Home</a>
-          <a className="link link-hover">All Books</a>
-          <a className="link link-hover">About US</a>
-          <a className="link link-hover">Links</a>
-        </nav>
-        <nav>
-          <div className="grid grid-flow-col gap-4">
-            <a>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                className="fill-current"
-              >
-                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
-              </svg>
-            </a>
-            <a>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                className="fill-current"
-              >
-                <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
-              </svg>
-            </a>
-            <a>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                className="fill-current"
-              >
-                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path>
-              </svg>
-            </a>
+    <footer className="bg-slate-900 text-slate-300 pt-16 pb-8 border-t border-slate-800">
+      <div className="max-w-11/12 mx-auto px-4 md:px-8">
+        
+        {/* Main Grid Structure */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+          
+          {/* Column 1: Brand Info */}
+          <div className="space-y-4">
+            <h3 className="text-2xl font-extrabold text-white tracking-tight">
+              Book<span className="text-sky-400">Courier</span>
+            </h3>
+            <p className="text-sm text-slate-400 leading-relaxed font-medium">
+              The fastest and most reliable book delivery network in Bangladesh. Connecting passionate readers with nationwide bookstores.
+            </p>
           </div>
-        </nav>
-        <aside>
+
+          {/* Column 2: Fully Functional Internal Links */}
+          <div className="space-y-4">
+            <h4 className="text-base font-bold text-white uppercase tracking-wider">Quick Navigation</h4>
+            <ul className="space-y-2 text-sm font-medium">
+              <li>
+                <Link to="/" className="hover:text-sky-400 transition-colors block py-0.5">Home</Link>
+              </li>
+              <li>
+                <Link to="/allBook" className="hover:text-sky-400 transition-colors block py-0.5">All Books</Link>
+              </li>
+              <li>
+                <Link to="/dashboard/myProfile" className="hover:text-sky-400 transition-colors block py-0.5">User Dashboard</Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 3: Contact Information Requirement */}
+          <div className="space-y-4">
+            <h4 className="text-base font-bold text-white uppercase tracking-wider">Contact Us</h4>
+            <ul className="space-y-3 text-sm font-medium">
+              <li className="flex items-start gap-3">
+                <span className="text-sky-400 mt-0.5 text-base"><FaMapMarkerAlt /></span>
+                <span className="text-slate-400">Khushi, Chattogram, Bangladesh</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="text-sky-400 text-base"><FaPhoneAlt /></span>
+                <a href="tel:+8801700000000" className="hover:text-sky-400 transition-colors">+880 1700-000000</a>
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="text-sky-400 text-base"><FaEnvelope /></span>
+                <a href="mailto:support@bookcourier.com" className="hover:text-sky-400 transition-colors">support@bookcourier.com</a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 4: Social Links Requirement */}
+          <div className="space-y-4">
+            <h4 className="text-base font-bold text-white uppercase tracking-wider">Follow Our Journey</h4>
+            <p className="text-xs text-slate-400 font-medium">Stay updated with our latest offers and book reviews.</p>
+            <div className="flex items-center gap-3 pt-2">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-xl bg-slate-800 text-slate-300 hover:bg-sky-500 hover:text-white flex items-center justify-center text-lg transition-all duration-300 shadow-md"
+                aria-label="Facebook"
+              >
+                <FaFacebookF />
+              </a>
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-xl bg-slate-800 text-slate-300 hover:bg-sky-500 hover:text-white flex items-center justify-center text-lg transition-all duration-300 shadow-md"
+                aria-label="Twitter"
+              >
+                <FaTwitter />
+              </a>
+              <a
+                href="https://youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-xl bg-slate-800 text-slate-300 hover:bg-rose-600 hover:text-white flex items-center justify-center text-lg transition-all duration-300 shadow-md"
+                aria-label="Youtube"
+              >
+                <FaYoutube />
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Bottom Bar: Copyright Notice */}
+        <div className="pt-8 border-t border-slate-800 text-center flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium text-slate-500">
           <p>
-            Copyright © {new Date().getFullYear()} - All right reserved by
-            BookCourier Ltd
+            Copyright © {new Date().getFullYear()} - All rights reserved by{" "}
+            <span className="text-slate-400 font-semibold">BookCourier Ltd</span>
           </p>
-        </aside>
-      </footer>
-    </div>
+          <div className="flex gap-4">
+            <span className="cursor-default hover:text-slate-400 transition-colors">Privacy Policy</span>
+            <span className="cursor-default hover:text-slate-400 transition-colors">Terms of Service</span>
+          </div>
+        </div>
+
+      </div>
+    </footer>
   );
 };
 

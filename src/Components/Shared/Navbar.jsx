@@ -1,5 +1,6 @@
 // import React from "react";
-import { Link } from "react-router";
+// Updated: NavLink imported instead of Link for active route styling
+import { NavLink, Link } from "react-router";
 import useAuth from "../../hook/useAuth";
 import logo from "/logo.png";
 
@@ -10,17 +11,25 @@ const Navbar = () => {
 
   console.log(user);
 
+  // Common function to handle active/selected tab styles
+  const activeLinkStyle = ({ isActive }) => 
+    `font-semibold px-3 py-2 rounded-lg transition-all duration-200 ${
+      isActive 
+        ? "bg-sky-500 text-white shadow-sm hover:bg-sky-600" 
+        : "text-slate-700 hover:bg-sky-200/50 hover:text-sky-600"
+    }`;
+
   const links = (
     <>
       <li>
-        <Link to="/">Home</Link>
+        <NavLink to="/" className={activeLinkStyle}>Home</NavLink>
       </li>
       <li>
-        <Link to="/allBook">All Book</Link>
+        <NavLink to="/allBook" className={activeLinkStyle}>All Book</NavLink>
       </li>
       {user && (
         <li>
-          <Link to="/dashboard/myProfile">Dashboard</Link>
+          <NavLink to="/dashboard/myProfile" className={activeLinkStyle}>Dashboard</NavLink>
         </li>
       )}
     </>
@@ -33,10 +42,11 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    // Fixed bg-sky-100 background for a clear light sky vibe
+    <div className="navbar bg-sky-100 sticky top-0 z-50 border-b border-sky-200 transition-all duration-300 shadow-sm">
       <div className="navbar-start lg:ml-10 md:ml-7">
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden text-slate-700">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -55,22 +65,26 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow-lg border border-sky-200"
           >
             {links}
           </ul>
         </div>
-        <img src={logo} className="h-10 w-10" alt="" />
-        <Link to='/' className="text-xl font-bold">
-          Book<span className="text-sky-500">Courier</span>
-        </Link>
+        <div className="flex items-center gap-2">
+          <img src={logo} className="h-9 w-9 object-contain" alt="Logo" />
+          <Link to='/' className="text-xl font-extrabold tracking-tight text-slate-800">
+            Book<span className="text-sky-500">Courier</span>
+          </Link>
+        </div>
       </div>
+      
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{links}</ul>
+        <ul className="menu menu-horizontal px-1 gap-2">{links}</ul>
       </div>
-      <div className="navbar-end lg:mr-10 md:mr-7 gap-2">
+      
+      <div className="navbar-end lg:mr-10 md:mr-7 gap-3">
         {/* theme btn from daisyui - updated value */}
-        <label className="swap swap-rotate mr-2">
+        <label className="swap swap-rotate mr-1 p-2 rounded-full hover:bg-sky-200/50 transition-colors text-slate-700">
           {/* this hidden checkbox controls the state */}
           <input
             type="checkbox"
@@ -80,7 +94,7 @@ const Navbar = () => {
 
           {/* sun icon */}
           <svg
-            className="swap-off h-7 w-7 fill-current"
+            className="swap-off h-6 w-6 fill-current"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
           >
@@ -89,7 +103,7 @@ const Navbar = () => {
 
           {/* moon icon */}
           <svg
-            className="swap-on h-7 w-7 fill-current"
+            className="swap-on h-6 w-6 fill-current"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
           >
@@ -102,7 +116,7 @@ const Navbar = () => {
             <div
               tabIndex={0}
               role="button"
-              className="btn btn-ghost btn-circle avatar border border-sky-400"
+              className="btn btn-ghost btn-circle avatar border-2 border-sky-400 hover:border-sky-500 transition-all p-0.5"
             >
               <div className="w-9 rounded-full">
                 <img
@@ -116,28 +130,28 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-xl z-10 mt-3 w-52 p-3 shadow border border-gray-100"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-xl z-50 mt-3 w-56 p-3 shadow-xl border border-sky-200"
             >
-              <div className="px-2 py-1.5 border-b border-gray-100 mb-2">
-                <p className="font-bold text-gray-800 text-sm truncate">
+              <div className="px-3 py-2 border-b border-base-200 mb-2">
+                <p className="font-bold text-slate-800 text-sm truncate">
                   {user?.displayName || "User"}
                 </p>
-                <p className="text-xs text-gray-400 truncate mt-0.5">
+                <p className="text-xs text-slate-400 truncate mt-0.5">
                   {user?.email}
                 </p>
               </div>
               <li>
-                <a
+                <button
                   onClick={handleSignOut}
-                  className="btn btn-sm bg-red-50 hover:bg-red-100 text-red-600 border border-red-100 font-semibold rounded-lg mt-1 w-full justify-center"
+                  className="btn btn-sm bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg mt-1 w-full justify-center border-none shadow-sm"
                 >
                   Logout
-                </a>
+                </button>
               </li>
             </ul>
           </div>
         ) : (
-          <Link className="btn btn-sm mx-2 hover:bg-amber-500" to="/login">
+          <Link className="btn btn-sm bg-sky-500 hover:bg-sky-600 text-white border-none rounded-lg px-5 font-bold shadow-md transition-all" to="/login">
             Login
           </Link>
         )}
