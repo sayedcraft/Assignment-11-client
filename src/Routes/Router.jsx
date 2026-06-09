@@ -22,6 +22,8 @@ import MyOrder from "../Pages/Dashboard/User/MyOrder";
 import LibrarianRoute from "./LibrarianRoute";
 import AdminRoute from "./AdminRoute";
 import UpdateBook from "../Pages/Dashboard/Librarian/UpdateBook";
+import About from "../Pages/About";
+import ComingSoon from "../Pages/ComingSoon";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +37,14 @@ export const router = createBrowserRouter([
       {
         path: "allBook",
         Component: AllBook,
+      },
+      {
+        path: "about",
+        Component: About,
+      },
+      {
+        path:'comingSoon',
+        Component:ComingSoon
       },
       {
         path: "boodDetails/:id",
