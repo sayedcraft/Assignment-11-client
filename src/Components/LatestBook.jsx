@@ -17,24 +17,25 @@ const LatestBook = () => {
 
   return (
     <section className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-sky-50/20 via-white to-transparent">
-      <div className="max-w-6xl mx-auto space-y-10">
-        
+      <div className="space-y-10">
         {/* Section Title */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 border-b border-slate-100 pb-6">
-          <div className="text-center my-5">
-        <h1 className="font-bold text-4xl mb-2">
-          Latest <span className="text-sky-500">Arrivals</span>
-        </h1>
-        <p className="text-gray-500">
-          Explore the freshest additions to our expanding library.
-        </p>
-      </div>
+          <div className=" my-5">
+            <h1 className="font-bold text-4xl mb-2">
+              Latest <span className="text-sky-500">Arrivals</span>
+            </h1>
+            <p className="text-gray-500">
+              Explore the freshest additions to our expanding library.
+            </p>
+          </div>
           <Link
             to="/allBook"
             className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-sky-500 hover:text-sky-600 group transition-all w-fit border border-sky-100 hover:border-sky-200 bg-sky-50/50 px-4 py-2 rounded-xl shadow-xs"
           >
-            View All Books 
-            <span className="group-hover:translate-x-1 transition-transform">→</span>
+            View All Books
+            <span className="group-hover:translate-x-1 transition-transform">
+              →
+            </span>
           </Link>
         </div>
 
@@ -65,14 +66,18 @@ const LatestBook = () => {
                     {book.title}
                   </h3>
                   <p className="text-[11px] sm:text-xs font-semibold text-slate-400">
-                    By <span className="text-slate-600 font-bold">{book.author}</span>
+                    By{" "}
+                    <span className="text-slate-600 font-bold">
+                      {book.author}
+                    </span>
                   </p>
                 </div>
 
                 {/* Price & Details Button */}
                 <div className="flex items-center justify-between pt-3 border-t border-slate-100/80">
                   <span className="text-base sm:text-lg font-black text-sky-500 flex items-center gap-0.5">
-                    <span className="font-sans text-xs sm:text-sm">৳</span>{book.price}
+                    <span className="font-sans text-xs sm:text-sm">৳</span>
+                    {book.price}
                   </span>
                   <Link
                     to={`/boodDetails/${book._id}`}
@@ -88,7 +93,7 @@ const LatestBook = () => {
 
         {/* Empty State */}
         {latestBooks.length === 0 && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="text-center py-16 sm:py-24 bg-white rounded-3xl border border-dashed border-slate-200 shadow-sm max-w-xl mx-auto space-y-4"
@@ -97,9 +102,12 @@ const LatestBook = () => {
               <FiBookOpen />
             </div>
             <div>
-              <h4 className="text-base font-bold text-slate-800">No New Arrivals</h4>
+              <h4 className="text-base font-bold text-slate-800">
+                No New Arrivals
+              </h4>
               <p className="text-xs text-slate-400 font-medium max-w-xs mx-auto mt-1">
-                We haven't added any new books recently. Please check back later or explore our full library.
+                We haven't added any new books recently. Please check back later
+                or explore our full library.
               </p>
             </div>
           </motion.div>
