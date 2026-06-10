@@ -59,7 +59,7 @@ const TermsAndConditions = () => {
               </ul>
             </div>
 
-            {/* Dynamic Info Card (Using Existing Backend Data) */}
+            {/* Dynamic Info Card  */}
             <div className="bg-gradient-to-br from-sky-500 to-indigo-500 rounded-3xl shadow-md p-6 text-white space-y-4">
               <div className="flex items-center gap-3 mb-2">
                 <div className="p-2 bg-white/20 rounded-xl">

@@ -21,14 +21,14 @@ const LatestBook = () => {
         
         {/* Section Title */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 border-b border-slate-100 pb-6">
-          <div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-800 tracking-tight">
-              Latest <span className="text-sky-500 bg-gradient-to-r from-sky-500 to-indigo-500 bg-clip-text text-transparent">Arrivals</span>
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-400 font-medium mt-1.5">
-              Explore the freshest additions to our expanding library.
-            </p>
-          </div>
+          <div className="text-center my-5">
+        <h1 className="font-bold text-4xl mb-2">
+          Latest <span className="text-sky-500">Arrivals</span>
+        </h1>
+        <p className="text-gray-500">
+          Explore the freshest additions to our expanding library.
+        </p>
+      </div>
           <Link
             to="/allBook"
             className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-sky-500 hover:text-sky-600 group transition-all w-fit border border-sky-100 hover:border-sky-200 bg-sky-50/50 px-4 py-2 rounded-xl shadow-xs"
@@ -38,7 +38,7 @@ const LatestBook = () => {
           </Link>
         </div>
 
-        {/* Card Grid - Mobile এ ২ কলাম এবং বড় স্ক্রিনে ৪ কলাম করা হয়েছে */}
+        {/* Card Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
           {latestBooks.map((book, index) => (
             <motion.div
@@ -49,7 +49,7 @@ const LatestBook = () => {
               transition={{ duration: 0.4, delay: index * 0.05 }}
               className="bg-white rounded-2xl sm:rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full group"
             >
-              {/* Image Section - AllBook এর মতন ৩:৪ রেশিও এবং প্যাডিং ম্যাচ করা */}
+              {/* Image Section  */}
               <div className="relative aspect-[3/4] bg-slate-50 flex items-center justify-center p-4 sm:p-6 overflow-hidden border-b border-slate-50">
                 <img
                   src={book.image}

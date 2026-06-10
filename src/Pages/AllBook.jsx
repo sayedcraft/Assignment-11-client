@@ -11,7 +11,7 @@ const AllBook = () => {
   
   // Pagination States
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8; // প্রতি পেজে কয়টি বই দেখাতে চান (প্রয়োজনে পরিবর্তন করতে পারেন)
+  const itemsPerPage = 8; 
 
   const { data: books = [], isLoading } = useQuery({
     queryKey: ["books"],
@@ -23,7 +23,7 @@ const AllBook = () => {
 
   if (isLoading) return <Loading></Loading>;
 
-  // 1. Filter and Sort Logic (আগে পুরো ডেটা ফিল্টার ও সর্ট হবে)
+  // 1. Filter and Sort Logic 
   const filteredBooks = books
     .filter((book) =>
       book.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -39,18 +39,15 @@ const AllBook = () => {
   const totalItems = filteredBooks.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   
-  // বর্তমান পেজের জন্য ডেটা স্লাইস বা কেটে নেওয়া
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentBooks = filteredBooks.slice(indexOfFirstItem, indexOfLastItem);
 
-  // সার্চ পরিবর্তন হলে পেজ নাম্বার রিসেট করে ১ এ নিয়ে আসার হ্যান্ডলার
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
-    setCurrentPage(1); // নতুন করে সার্চ করলে যেন ১ম পেজ থেকে দেখানো শুরু করে
+    setCurrentPage(1); 
   };
 
-  // সর্টিং পরিবর্তন হলে পেজ নাম্বার রিসেট করার হ্যান্ডলার
   const handleSortChange = (e) => {
     setSortBy(e.target.value);
     setCurrentPage(1);

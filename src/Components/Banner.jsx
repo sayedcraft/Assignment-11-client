@@ -6,7 +6,6 @@ import { FiArrowRight, FiSearch, FiTruck, FiMapPin } from "react-icons/fi";
 const Banner = () => {
   const [currentSlider, setCurrentSlider] = useState(0);
 
-  // Premium English slide content with high-res Unsplash backgrounds
   const slides = [
     {
       id: 1,
