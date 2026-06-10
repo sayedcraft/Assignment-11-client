@@ -79,9 +79,6 @@ const About = () => {
             viewport={{ once: true }}
             className="lg:col-span-7 space-y-5 text-center lg:text-left"
           >
-            <div className="inline-flex items-center bg-sky-50 dark:bg-slate-800 border border-sky-100 dark:border-slate-700 text-sky-600 dark:text-sky-400 px-4 py-1.5 rounded-full text-xs font-bold shadow-sm">
-              ✨ Our Story
-            </div>
 
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-800 dark:text-slate-100 tracking-tight leading-tight">
               Revolutionizing How Bangladesh{" "}
