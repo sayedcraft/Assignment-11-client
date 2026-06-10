@@ -24,6 +24,7 @@ import AdminRoute from "./AdminRoute";
 import UpdateBook from "../Pages/Dashboard/Librarian/UpdateBook";
 import About from "../Pages/About";
 import ComingSoon from "../Pages/ComingSoon";
+import TermsAndConditions from "../Pages/TermsAndConditions";
 
 export const router = createBrowserRouter([
   {
@@ -43,8 +44,12 @@ export const router = createBrowserRouter([
         Component: About,
       },
       {
-        path:'comingSoon',
-        Component:ComingSoon
+        path: "/terms",
+        Component: TermsAndConditions,
+      },
+      {
+        path: "comingSoon",
+        Component: ComingSoon,
       },
       {
         path: "boodDetails/:id",

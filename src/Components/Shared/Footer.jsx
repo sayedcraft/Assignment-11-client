@@ -21,13 +21,16 @@ const Footer = () => {
 
           {/* Column 2: Fully Functional Internal Links */}
           <div className="space-y-4">
-            <h4 className="text-base font-bold text-white uppercase tracking-wider">Quick Navigation</h4>
+            <h4 className="text-base font-bold text-white uppercase tracking-wider">Quick Link</h4>
             <ul className="space-y-2 text-sm font-medium">
               <li>
                 <Link to="/" className="hover:text-sky-400 transition-colors block py-0.5">Home</Link>
               </li>
               <li>
                 <Link to="/allBook" className="hover:text-sky-400 transition-colors block py-0.5">All Books</Link>
+              </li>
+              <li>
+                <Link to="/terms" className="hover:text-sky-400 transition-colors block py-0.5">Terms & Conditions</Link>
               </li>
               <li>
                 <Link to="/dashboard/myProfile" className="hover:text-sky-400 transition-colors block py-0.5">User Dashboard</Link>

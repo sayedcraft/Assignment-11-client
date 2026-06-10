@@ -1,51 +1,54 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiArrowRight, FiTruck, FiBookOpen, FiShield } from "react-icons/fi";
+import { FiArrowRight, FiSearch, FiTruck, FiMapPin } from "react-icons/fi";
 
 const Banner = () => {
   const [currentSlider, setCurrentSlider] = useState(0);
 
-  // Assignment Requirements: 3 Completely Distinct and Rich Slides
+  // Premium English slide content with high-res Unsplash backgrounds
   const slides = [
     {
       id: 1,
-      bgGradient: "from-sky-100 via-sky-50 to-white",
-      tagline: "⚡ Next-Gen Book Delivery",
-      title: "Your Desired Books Delivered Directly To Your Doorstep",
-      subheading: "Connect with premium bookstores and libraries across Bangladesh. Experience lightning-fast courier service with end-to-end parcel protection.",
-      image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&q=80&w=800",
-      ctaText: "Order A Book",
-      ctaLink: "/allBook",
-      statIcon: <FiTruck />,
-      statNumber: "24-48 Hours",
-      statLabel: "Guaranteed Nationwide Delivery",
+      image:
+        "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&q=80&w=1600",
+      title: "Explore A Massive Catalog Of Academic & Fiction Novels",
+      subheading:
+        "From complex engineering journals to classical literature, explore thousands of certified publications and global bestsellers all in one place.",
+      ctaText1: "Browse Collection",
+      ctaLink1: "/allBook",
+      icon1: <FiSearch />,
+      ctaText2: "New Arrivals",
+      ctaLink2: "/allBook",
+      icon2: <FiArrowRight />,
     },
     {
       id: 2,
-      bgGradient: "from-indigo-100 via-indigo-50 to-white",
-      tagline: "📚 Unlimited Knowledge Base",
-      title: "Explore A Massive Catalog Of Academic & Fiction Novels",
-      subheading: "From complex engineering journals to classical literature, explore thousands of certified academic publications and global bestsellers in one place.",
-      image: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&q=80&w=800",
-      ctaText: "Browse Collection",
-      ctaLink: "/allBook",
-      statIcon: <FiBookOpen />,
-      statNumber: "15,000+",
-      statLabel: "Active Books Available",
+      image:
+        "https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&q=80&w=1600",
+      title: "Secure Payment Gateways With Live Order Tracking",
+      subheading:
+        "Take absolute control of your orders. Monitor your book parcel status in real-time from our automated hub straight to your doorstep.",
+      ctaText1: "Track Your Order",
+      ctaLink1: "/dashboard/myProfile",
+      icon1: <FiMapPin />,
+      ctaText2: "Login Now",
+      ctaLink2: "/login",
+      icon2: <FiArrowRight />,
     },
     {
       id: 3,
-      bgGradient: "from-emerald-100 via-emerald-50 to-white",
-      tagline: "🛡️ Real-time Tracking & Security",
-      title: "Secure Payment Gateways With Live Order Tracking",
-      subheading: "Take absolute control of your orders. Monitor your book parcel status in real-time from our automated hub straight to your residential area.",
-      image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80&w=800",
-      ctaText: "Track Your Order",
-      ctaLink: "login",
-      statIcon: <FiShield />,
-      statNumber: "100% Secured",
-      statLabel: "Cash on Delivery & SSL Payment",
+      image:
+        "https://images.unsplash.com/photo-1595053801819-74d12a6886e8?auto=format&fit=crop&q=80&w=1600",
+      title: "Your Favorite Books Delivered Straight To Your Doorstep",
+      subheading:
+        "Connect with premium bookstores and libraries nationwide. Experience lightning-fast courier service with end-to-end parcel protection.",
+      ctaText1: "Order A Book",
+      ctaLink1: "/allBook",
+      icon1: <FiArrowRight />,
+      ctaText2: "Check Rates",
+      ctaLink2: "/about",
+      icon2: <FiTruck />,
     },
   ];
 
@@ -58,80 +61,84 @@ const Banner = () => {
   }, [slides.length]);
 
   return (
-    // Requirement Met: Height limited strictly between 60% and 70% of viewport (65vh)
-    <div className="relative h-[65vh] min-h-120 w-full flex items-center overflow-hidden bg-white select-none">
-      
-      {/* Interactive Element: Image Carousel & Text Slide Animation with Framer Motion */}
+    <div className="relative h-[65vh] min-h-[450px] w-full overflow-hidden bg-slate-900 select-none">
+      {/* Slide Animation Container */}
       <AnimatePresence mode="wait">
         {slides.map((slide, index) => {
           if (index !== currentSlider) return null;
           return (
             <motion.div
               key={slide.id}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-              className={`absolute inset-0 bg-gradient-to-br ${slide.bgGradient} flex items-center`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.7, ease: "easeInOut" }}
+              className="absolute inset-0"
             >
-              <div className="max-w-11/12 mx-auto px-4 md:px-8 w-full">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                  
-                  {/* Left Column: Visual Hierarchy Content */}
-                  <div className="lg:col-span-7 space-y-4 text-center lg:text-left">
+              {/* Fullscreen Background Image */}
+              <img
+                src={slide.image}
+                alt={slide.title}
+                className="w-full h-full object-cover"
+              />
+
+              {/* Dark Overlay Gradient for Perfect Readability */}
+              <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/50" />
+
+              {/* Foreground Content Panel */}
+              <div className="absolute inset-0 flex items-center">
+                <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
+                  <div className="max-w-3xl space-y-5 text-white">
                     
-                    {/* Sub-tagline badge */}
-                    <div className="inline-flex items-center bg-white border border-sky-200/60 text-sky-600 px-3 py-1 rounded-full text-xs font-bold shadow-sm">
-                      {slide.tagline}
-                    </div>
 
-                    {/* Requirement Met: Clear Heading */}
-                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-800 leading-tight">
+                    {/* Main Title Heading */}
+                    <motion.h1
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.4, duration: 0.5 }}
+                      className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight"
+                    >
                       {slide.title}
-                    </h1>
+                    </motion.h1>
 
-                    {/* Requirement Met: Clear Subheading */}
-                    <p className="text-slate-600 text-xs sm:text-sm md:text-base font-medium max-w-2xl mx-auto lg:mx-0 leading-relaxed opacity-90">
+                    {/* Subheading Paragraph */}
+                    <motion.p
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.6, duration: 0.5 }}
+                      className="text-slate-200 text-sm md:text-base lg:text-lg font-medium max-w-2xl leading-relaxed opacity-90"
+                    >
                       {slide.subheading}
-                    </p>
+                    </motion.p>
 
-                    {/* Action Panel: Strong Call To Action Button & Interactive Stats */}
-                    <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 pt-2">
-                      {/* Requirement Met: Strong CTA Button */}
+                    {/* Dual Action Buttons */}
+                    <motion.div
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.8, duration: 0.5 }}
+                      className="flex flex-wrap items-center gap-4 pt-4"
+                    >
+                      {/* Primary Button */}
                       <Link
-                        to={slide.ctaLink}
-                        className="btn btn-sm md:btn-md bg-sky-500 hover:bg-sky-600 text-white border-none rounded-xl px-6 font-bold shadow-md shadow-sky-500/20 transition-all group"
+                        to={slide.ctaLink1}
+                        className="btn btn-md md:btn-lg bg-sky-500 hover:bg-sky-600 text-white border-none rounded-xl px-8 font-bold shadow-lg shadow-sky-500/30 transition-all group gap-2"
                       >
-                        {slide.ctaText}
-                        <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
+                        {slide.ctaText1}
+                        <span className="group-hover:translate-x-1 transition-transform">
+                          {slide.icon1}
+                        </span>
                       </Link>
 
-                      {/* Requirement Met: Dynamic Interactive Statistics Component */}
-                      <div className="flex items-center gap-2.5 border-l border-slate-300 pl-5 text-left py-1">
-                        <div className="w-9 h-9 rounded-xl bg-white text-sky-500 flex items-center justify-center text-lg shadow-sm border border-sky-100">
-                          {slide.statIcon}
-                        </div>
-                        <div>
-                          <h4 className="text-sm md:text-base font-extrabold text-slate-800 leading-none">{slide.statNumber}</h4>
-                          <p className="text-[11px] text-slate-500 font-medium mt-0.5">{slide.statLabel}</p>
-                        </div>
-                      </div>
-                    </div>
-
+                      {/* Secondary Glassmorphism Button */}
+                      <Link
+                        to={slide.ctaLink2}
+                        className="btn btn-md md:btn-lg bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-white/30 rounded-xl px-8 font-semibold backdrop-blur-sm transition-all gap-2"
+                      >
+                        {slide.icon2}
+                        {slide.ctaText2}
+                      </Link>
+                    </motion.div>
                   </div>
-
-                  {/* Right Column: Visual Image Asset */}
-                  <div className="lg:col-span-5 hidden lg:flex justify-center">
-                    <div className="relative w-full max-w-105 aspect-16/10 bg-white border-4 border-white rounded-2xl shadow-xl overflow-hidden group">
-                      <img
-                        src={slide.image}
-                        alt={slide.title}
-                        className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-700"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent" />
-                    </div>
-                  </div>
-
                 </div>
               </div>
             </motion.div>
@@ -139,16 +146,16 @@ const Banner = () => {
         })}
       </AnimatePresence>
 
-      {/* Manual Interactive Elements: Bottom Slide Controller Dots */}
-      <div className="absolute bottom-5 left-1/2 transform -translate-x-1/2 flex items-center gap-2.5 z-20">
+      {/* Slide Pagination Controller Dots */}
+      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex items-center gap-3 z-20">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentSlider(index)}
-            className={`transition-all duration-300 rounded-full h-2 ${
-              index === currentSlider 
-                ? "w-7 bg-sky-500" 
-                : "w-2 bg-slate-300 hover:bg-slate-400"
+            className={`transition-all duration-300 rounded-full h-2.5 ${
+              index === currentSlider
+                ? "w-8 bg-sky-500"
+                : "w-2.5 bg-white/50 hover:bg-white/80"
             }`}
             aria-label={`Show slide ${index + 1}`}
           />
